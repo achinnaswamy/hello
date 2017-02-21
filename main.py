@@ -1,7 +1,7 @@
 import json
 import csv
-f =  open ('out/tables/destination2.csv')
-writer = csv.writer(f)
+with open ('out/tables/destination.csv', mode='wt', encoding='utf-8') as out_file:
+writer = csv.writer(out_file)
 url = 'https://www.reddit.com/r/tableau/.json'
 json_obj = urllib2.urlopen(url)
 data = json.load(json_obj)
