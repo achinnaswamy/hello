@@ -1,10 +1,10 @@
 import json
 import csv
-import urllib2
+import requests
 with open ('out/tables/destination.csv', mode='wt', encoding='utf-8') as out_file:
      writer = csv.writer(out_file)
-url = 'https://www.reddit.com/r/tableau/.json'
-json_obj = urllib2.urlopen(url)
-data = json.load(json_obj)
+r = requests.get(r'https://www.reddit.com/r/tableau/.json')
+r.text
+data = r.json()
 for child in data['data']['children']:
      writer.writerow({child['data']['id'], child['data']['author']})
