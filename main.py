@@ -1,11 +1,10 @@
 import urllib2
 import json
 import csv
-csvlt = ‘\n’
 csvdel = ‘,’
 csvquo = ‘”’
 with open (‘out/tables/destination.csv’, mode=’wt’, encoding=’utf-8’) as out_file:
-writer = csv.DictWriter(out_file, fieldnames=[‘col1’, ‘col2’], lineterminator=csvlt, delimiter=csvdel, quotechar=csvquo)
+writer = csv.DictWriter(out_file, fieldnames=[‘col1’, ‘col2’], delimiter=csvdel, quotechar=csvquo)
 writer.writeheader()
 url = ‘https://www.reddit.com/r/tableau/.json’
 json_obj = urllib2.urlopen(url)
