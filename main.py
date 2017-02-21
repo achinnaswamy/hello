@@ -1,19 +1,14 @@
+import urllib2
+import json
 import csv
-
-# CSV format settings
-csvlt = '\n'
-csvdel = ','
-csvquo = '"'
-
-# open the input and output files
-with open('in/tables/source.csv', mode='rt', encoding='utf-8') as in_file, open('out/tables/destination.csv', mode='wt', encoding='utf-8') as out_file:
-    # write output file header
-    writer = csv.DictWriter(out_file, fieldnames=['number', 'someText', 'double_number'], lineterminator=csvlt, delimiter=csvdel, quotechar=csvquo)
-    writer.writeheader()
-
-    # read input file line-by-line
-    lazy_lines = (line.replace('\0', '') for line in in_file)
-    csv_reader = csv.DictReader(lazy_lines, lineterminator=csvlt, delimiter=csvdel, quotechar=csvquo)
-    for row in csv_reader:
-        # do something and write row
-        writer.writerow({'number': row['number'], 'someText': row['someText'], 'double_number': int(row['number']) * 2})
+csvlt = ‘\n’
+csvdel = ‘,’
+csvquo = ‘”’
+with open (‘out/tables/destination.csv’, mode=’wt’, encoding=’utf-8’) as out_file:
+writer = csv.DictWriter(out_file, fieldnames=[‘col1’, ‘col2’], lineterminator=csvlt, delimiter=csvdel, quotechar=csvquo)
+writer.writeheader()
+url = ‘https://www.reddit.com/r/tableau/.json’
+json_obj = urllib2.urlopen(url)
+data = json.load(json_obj)
+for child in data[‘data’][‘children’]:
+writer.writerow({‘col1’: child[‘data’][‘id’], ‘col2’: child[‘data’][‘author’]})
